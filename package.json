@@ -1,4 +1,14 @@
 {
+  "name": "nosql-social-network",
+  "version": "1.0.1",
+  "description": "Mongoose back-end project - social network",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
   "dependencies": {
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
