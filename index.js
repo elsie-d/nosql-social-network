@@ -8,7 +8,7 @@ const cwd = process.cwd()
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const activity = cwd.included('Social Network App')
+const activity = cwd.includes('Social Network App')
 ? cwd.split('Social Network App')[1]
 : cwd;
 
