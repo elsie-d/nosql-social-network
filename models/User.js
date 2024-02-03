@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const userSchema = new Schema(
     {
-     userName: {
+     username: {
         type: String,
         trim: true,
         unique: true,
@@ -15,9 +15,18 @@ const userSchema = new Schema(
         required: true,
 
      },
-     thoughts: [thoughtSchema],
-     friends: [userSchema],
-
+     friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }  
+     ], 
+     thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought'
+      }
+     ],
      },       
      {
         toJSON: {
@@ -27,20 +36,16 @@ const userSchema = new Schema(
 );
 
 
-// Reciew this -- specially the .set
+
 userSchema
 .virtual('friendCount')
 .get(function(){
-    const friendsTotal = aggregate.count("friends")
-    console.log('friendsTotal')
-    return friendsTotal;
+    return this.friends.length
 
 })
-.set(function (v){
-    this.set({friendsTotal})
-})
 
-const user = model('user', userSchema)
+
+const User = model('User', userSchema)
 module.exports = User
 
 
