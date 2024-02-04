@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
 //test
-router.get('/', (req,res) => {
+/* router.get('/', (req,res) => {
     res.json({message: 'this works'})
-})
+}) */
  
 // test post
 /* router.post('/newuser', async (req, res) => {
@@ -17,9 +17,11 @@ router.get('/', (req,res) => {
  */
 
 const {
+    getUsers,
     createUser,
 } = require('../../controllers/userController.js');
 
+router.route('/').get(getUsers);
 router.route('/').post(createUser)
 
 
