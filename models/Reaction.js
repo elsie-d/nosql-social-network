@@ -1,5 +1,6 @@
 const {Schema, Types} = require('mongoose')
 
+
 function formattingDate(currentDate){
     return currentDate.getMonth
     //See HW 6  & 14 for formtting  
@@ -9,13 +10,13 @@ function formattingDate(currentDate){
 const reactionSchema = new Schema ({
 
     reactionID:{
-        type: Schema.Types.ObjectId(),
+        type: Schema.Types.ObjectId,
         default: ()=> new Types.ObjectId()
     },
     reactionBody:{
         type: String,
         required: true,
-        maxlenght: 200, 
+        maxlenght: 280, 
     },
     username: {
         type: String,
@@ -31,6 +32,5 @@ const reactionSchema = new Schema ({
 
 
 
-const Reaction = model('Reaction', reactionSchema)
-module.exports = Reaction
 
+module.exports = reactionSchema

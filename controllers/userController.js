@@ -1,15 +1,16 @@
-const {ObjectId} = require('mongoose').Types;
-const User = require('../models/User');
+//const {ObjectId} = require('mongoose').Types;
+const  User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = {
 // Get ALL users 
   async getUsers(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find().populate('thoughts');
 
       const usersObj = {
         users,
-       /* headCount: await headCount(), */
+       
       };
 
       res.json(usersObj);
@@ -78,27 +79,31 @@ async getUser(req, res){
   }catch(err){
     res.status(500).json(err);
   }
- }
+ },
 
+ // Add a new friend
+ async addFriend(req, res){
+  try{
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: req.params.userId},
+      {$addToSet: {friends: req.params.friendId}},
+      {new: true}
+    )
+    res.json(updatedUser);
+  }catch(err){res.json(err)}
+ },
+
+ //Remove Friend
+ async deleteFriend(req, res){
+  try{
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: req.params.userId},
+      {$pull: {friends: req.params.friendId}},
+      {new: true}
+    )
+    res.json(updatedUser);
+  }catch(err){res.json(err)}
+ },
 }
 
 
-/* **`/api/users`**
-
-* `GET` all users
-
-* `GET` a single user by its `_id` and populated thought and friend data
-
-* `POST` a new user:
-
-```json
-// example data
-{
-  "username": "lernantino",
-  "email": "lernantino@gmail.com"
-}
-```
-
-* `PUT` to update a user by its `_id`
-
-* `DELETE` to remove user by its `_id` */
