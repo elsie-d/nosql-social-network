@@ -67,7 +67,7 @@ async getUser(req, res){
     res.status(500).json(err);
   }  
  },
- 
+ // Delete User
  async deleteUser(req, res){
   try{
     const user = await User.findOneAndDelete({_id: req.params.userId})
